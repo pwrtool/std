@@ -36,21 +36,29 @@ powertool.tool(
 
 // TEMPLATES
 powertool.tool(
-  "template-tool",
-  "copies all the necessary files for creating a tool",
+  "template-kit",
+  "copies all the necessary files for creating a kit",
   async () => {
     const args = new CliArgs();
     const cwd = args.get<string>("calldir");
 
     const path = join(
       cwd,
-      await io.prompt("Where wold you like to create the tool?\n")
+      await io.prompt("Where would you like to create the kit?\n")
     );
+    const template_dir = join(import.meta.dir, "templates/kit");
 
-    io.out(path);
+    io.out(`Creating tool at ${path}`);
+    io.out(`Copying templates from ${template_dir}`);
 
     fs.existsSync(path) || fs.mkdirSync(path, { recursive: true });
 
+    // copy the templates to the path
+    fs.cpSync(template_dir, path, { recursive: true });
+
+    io.success("\nDone! Enjoy your new kit! 🎉");
+    io.out("Run 'bun install' to start developing!");
+    io.out("Need help? See the docs or pwrtool/std for guidence.\n");
     exitWithSuccess();
   }
 );
