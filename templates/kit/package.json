@@ -1,5 +1,6 @@
 {
-  "name": ".",
+  "name": "test-kit",
+  "version": "1.0.0",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
@@ -9,6 +10,6 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@pwrtool/kit": "^2.0.1"
+    "@pwrtool/kit": "0.2.1"
   }
 }
