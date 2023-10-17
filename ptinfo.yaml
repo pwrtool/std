@@ -1,0 +1,10 @@
+---
+name: std
+author: firesquid6
+description: the standard kit for powertool
+repo: https://github.com/pwrtool/std
+config: []
+tools: 
+  - name: hello-world
+    description: a basic hello world tool. Simply prints hello world to the console and echos your name.
+    arguments: []
