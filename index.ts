@@ -1,5 +1,7 @@
 import powertool, { exitWithSuccess, exitWithError } from "@pwrtool/kit";
 import $ from "@pwrtool/bx";
+import path from "node:path";
+import fs from "node:fs";
 
 powertool([
   {
@@ -58,6 +60,22 @@ powertool([
       IO.out(result.stdout);
 
       process.exit(0);
+    },
+  },
+  {
+    name: "new-kit",
+    function: async (IO, CliArgs) => {
+      let projectPath = CliArgs.getRunDir();
+      if (CliArgs.exists("path")) {
+        projectPath = path.join(projectPath, CliArgs.getOrThrow("path"));
+      } else {
+        const projectName = await IO.prompt("Enter the project name:\n");
+        projectPath = path.join(projectPath, projectName);
+      }
+
+      fs.mkdirSync(projectPath, { recursive: true });
+
+      // where am I?
     },
   },
 ]);
