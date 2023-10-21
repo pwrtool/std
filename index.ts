@@ -1,7 +1,10 @@
 import powertool, { exitWithSuccess, exitWithError } from "@pwrtool/kit";
+import { findRunstring } from "@pwrtool/kit";
 import $ from "@pwrtool/bx";
 import path from "node:path";
 import fs from "node:fs";
+import { generateRunstring } from "@pwrtool/runstring";
+import os from "node:os";
 
 powertool([
   {
@@ -75,6 +78,28 @@ powertool([
       }
 
       copyDir(templatePath, projectPath);
+    },
+  },
+  {
+    name: "test-run",
+    function: async (IO, CliArgs) => {
+      // testing this tool was very weird
+      // I used the test-run to test the test-run
+      process.chdir(CliArgs.getRunDir());
+      const runstring = findRunstring();
+
+      $`pwrtool test-install`;
+
+      const tool = await IO.prompt("\nWhat tool do you want to run?\n");
+      runstring.tool = tool;
+
+      const generated = generateRunstring(runstring);
+
+      // ugly hard coding. It's fine though.
+      const file = `${os.homedir()}/.powertool/kits/bench>test/run.sh`;
+
+      IO.header(`\nRunning ${tool} from bench/test:`);
+      $`${file} ${generated}`;
     },
   },
 ]);
