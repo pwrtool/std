@@ -65,6 +65,7 @@ powertool([
   {
     name: "new-kit",
     function: async (IO, CliArgs) => {
+      const templatePath = path.join(process.cwd(), "templates", "kit");
       let projectPath = CliArgs.getRunDir();
       if (CliArgs.exists("path")) {
         projectPath = path.join(projectPath, CliArgs.getOrThrow("path"));
@@ -73,9 +74,21 @@ powertool([
         projectPath = path.join(projectPath, projectName);
       }
 
-      fs.mkdirSync(projectPath, { recursive: true });
-
-      // where am I?
+      copyDir(templatePath, projectPath);
     },
   },
 ]);
+
+function copyDir(src: string, dest: string) {
+  fs.mkdirSync(dest, { recursive: true });
+  fs.readdirSync(src).forEach((entry) => {
+    const srcPath = path.join(src, entry);
+    const destPath = path.join(dest, entry);
+    const srcStat = fs.statSync(srcPath);
+    if (srcStat.isFile()) {
+      fs.copyFileSync(srcPath, destPath);
+    } else if (srcStat.isDirectory()) {
+      copyDir(srcPath, destPath);
+    }
+  });
+}
