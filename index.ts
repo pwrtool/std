@@ -102,6 +102,28 @@ powertool([
       $`${file} ${generated}`;
     },
   },
+  {
+    name: "run-script",
+    function: async (IO, CliArgs) => {
+      let script = CliArgs.get("script") || "";
+      if (script === "") {
+        script = await IO.prompt("Please provide a script to run:\n");
+      }
+
+      const scriptPath = path.join(CliArgs.getRunDir(), script);
+
+      if (fs.existsSync(scriptPath) === false) {
+        IO.error(`Script ${scriptPath} does not exist`);
+        exitWithError();
+      }
+
+      IO.out("");
+      $`${scriptPath}`;
+      IO.out("");
+
+      process.chdir(CliArgs.getRunDir());
+    },
+  },
 ]);
 
 function copyDir(src: string, dest: string) {
