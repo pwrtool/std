@@ -4,7 +4,15 @@ author: firesquid6
 description: the standard kit for powertool
 repo: https://github.com/pwrtool/std
 config: []
-tools: 
+tools:
   - name: hello-world
     description: a basic hello world tool. Simply prints hello world to the console and echos your name.
     arguments: []
+  - name: test-run
+    description: test runs and installs your kit
+    arguments: []
+  - name: run-script
+    description: runs a local shell script
+    arguments:
+      - key: scripts
+        possible-values: any string filepath
