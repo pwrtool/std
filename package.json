@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@pwrtool/bx": "^2.0.0",
-    "@pwrtool/kit": "0.2.5"
+    "@pwrtool/kit": "0.2.5",
+    "@pwrtool/runstring": "^2.0.0"
   }
 }
