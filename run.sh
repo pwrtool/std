@@ -6,3 +6,4 @@ current_directory=`pwd`
 cd "$(dirname "$0")"
 
 echo "hello world!"
+echo $1
