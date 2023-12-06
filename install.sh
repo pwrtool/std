@@ -3,6 +3,10 @@
 cd "$(dirname "$0")"
 INSTALL_DIR=$1
 
+# remove any files that aren't needed
+rm -rf .git
+
+
 # ensure that the install directory exists
 mkdir -p $INSTALL_DIR
 
