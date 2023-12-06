@@ -6,9 +6,6 @@ INSTALL_DIR=$1
 # ensure that the install directory exists
 mkdir -p $INSTALL_DIR
 
-# install dependencies
-bun install
-
 # copy to the install directory
 cp -r . $INSTALL_DIR
 
